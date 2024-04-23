@@ -88,7 +88,7 @@ export default function Home() {
 
         {/* product 2 */}
         <Item
-          imgSrc="/product-tower-cat.jpg"
+          imgSrc="/product-towe-cat.jpg"
           title="Cat Tree Tower"
         />
         {/* product 3 */}

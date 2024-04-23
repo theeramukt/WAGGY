@@ -15,6 +15,7 @@ const navigation = [
   { name: 'Cart', href: '/cart' },
   // { name: 'Checkout', href: '/detail' },
   { name: 'Checkout', href: '/checkout' },
+  { name: 'Sign in', href: '/signin' },
 ];
 
 export default function Navbar() {
