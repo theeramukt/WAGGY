@@ -1,0 +1,64 @@
+import Navbar from '../components/Navbar';
+import Link from 'next/link';
+import Image from 'next/image';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+
+export default function Detail() {
+    const router = useRouter();
+    const { imgSrc, title, price, description } = router.query;
+    return (
+        <div>
+            <Head>
+                <title>Product Page</title>
+                <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+            </Head>
+            <Navbar />
+            <div className="bg-[#fefcfa]">
+                <div className="detail">
+                    <div className="max-w-4xl mx-auto py-20 px-4 sm:px-2 lg:px-8 ">
+                        <div className="flex flex-col md:space-x-20 md:flex-row md:items-center bg-white p-10 shadow-lg">
+                            <div className="md:flex-shrink-0">
+                                <Image
+                                    className="rounded-md"
+                                    src={imgSrc}
+                                    alt="White food container labeled Harry Barker Dog Food"
+                                    width={350}
+                                    height={350}
+                                />
+                            </div>
+                            <div className="mt-4 md:mt-0 md:ml-6">
+                                <h2 className="text-4xl tracking-tight text-gray-800">{title}</h2>
+                                <div className="mt-3 flex items-center">
+                                    <div className="text-yellow-600 text-md">
+                                        <i className="fas fa-star"></i>
+                                        <i className="fas fa-star"></i>
+                                        <i className="fas fa-star"></i>
+                                        <i className="fas fa-star"></i>
+                                        <i className="fas fa-star"></i>
+                                    </div>
+                                    <div className="ml-2 text-sm text-gray-400">5.0</div>
+                                </div>
+                                <p className="mt-2 text-gray-500 text-3xl font-semibold">${price}</p>
+                                <p className="mt-4 text-sm text-gray-700">
+                                    {description}
+                                </p>
+                                <div className="mt-8">
+                                    <button onClick={() => router.back()} className="bg-white hover:text-yellow-600 text-gray-800 py-2 px-4 rounded inline-flex items-center border border-black">
+                                        <span>back</span>
+                                        <i className="fas fa-arrow-right ml-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer className="line_down h-20 text-center text-brown-500 mt-12">
+                    <p>W A G G Y</p>
+                    <p>Best Destination For Your Pets</p>
+                </footer> 
+            </div>
+        </div>
+    );
+}
