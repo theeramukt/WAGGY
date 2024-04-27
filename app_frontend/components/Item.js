@@ -23,7 +23,7 @@ function Item({ imgSrc, title, price, description }) {
                     }} passHref>
                         <button className="btn btn-primary" style={{ marginRight: '2px' }}>view details</button>
                     </Link>
-                    <button className="btn btn-secondary">add to chart</button>
+                    <button className="btn btn-secondary">add to cart</button>
                 </div>
             </div>
         </div>

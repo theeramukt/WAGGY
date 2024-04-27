@@ -33,6 +33,8 @@ const ProductRow = ({ product }) => {
         <input type="text" className=" number px-3 py-1 border mx-2 text-center w-12" defaultValue="1" />
         <button className="px-3 py-1 border">+</button>
       </div>
+      
+      {/* Trash button */}
       <div className="col-span-1 flex justify-center">
         <i className="fas fa-trash cursor-pointer"></i>
       </div>
