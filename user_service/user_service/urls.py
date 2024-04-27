@@ -17,10 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from user_management.views import *
+from product_management.views import *
+from order_management.views import *
 from rest_framework_simplejwt.views import (
    TokenObtainPairView,
    TokenRefreshView,
 )
+from rest_framework import routers
+router = routers.DefaultRouter()
+router.register('api/address', CustomerAddressViewSet)
 
 
 urlpatterns = [
@@ -29,4 +34,10 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/myinfo', CustomerView.as_view(), name="myinfo"),
+    path('api/product', ProductView.as_view(), name='product'),
+    path('api/product/<int:pk>', ProductDetailView.as_view(), name='product'),
+    path('api/orders', OrderView.as_view(), name='order'),
+    path('api/order/<int:pk>', OrderDetailView.as_view(), name='order'),
 ]
+
+urlpatterns += router.urls

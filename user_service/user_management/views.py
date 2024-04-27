@@ -3,12 +3,14 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.contrib.auth.models import User
-from user_management.models import Customer
-from user_management.serializers import CustomerSerializer
+from user_management.models import Customer, CustomerAddress, Admin
+from user_management.serializers import CustomerSerializer, CustomerDetailSerializer, CustomerAddressSerializer, AdminSerializer
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 
 import requests
 
@@ -17,7 +19,7 @@ def register(request):
     if request.method == "POST":
         data = JSONParser().parse(request)
         try:
-            new_user = User.objects.create_user(username=data['fullname'], password=data['password'])
+            new_user = User.objects.create_user(username=data['email'], password=data['password'])
         except:
             return JsonResponse({"error":"username already used."}, status=400)
         new_user.save()
@@ -29,16 +31,36 @@ def register(request):
         new_user.delete()
         return JsonResponse({"error":"data not valid"}, status=400)
     return JsonResponse({"error":"method not allowed."}, status=405)
-# Create your views here.
-class CustomerView(APIView):
+
+# Admin
+class AdminView(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Admin.objects.all()
+    serializer_class = AdminSerializer
+
+# Customer
+class CustomerView(ListCreateAPIView):
    permission_classes = [IsAuthenticated]
-   def get(self, request, format=None):
-       customer_data = Customer.objects.get(user=request.user)
-       customer_serializer = CustomerSerializer(customer_data)
-       content = {
-           'data': customer_serializer.data
-       }
-       return Response(content)
+   queryset = Customer.objects.all()
+   serializer_class = CustomerSerializer
+#    def get(self, request, format=None):
+#        customer_data = Customer.objects.get(email=request.user)
+#        customer_serializer = CustomerSerializer(customer_data)
+#        content = {
+#            'data': customer_serializer.data
+#        }
+#        return Response(content)
+    
+class CustomerDetailView(RetrieveUpdateDestroyAPIView): # fetching, updating and deleting single data
+    permission_classes = [IsAuthenticated]
+    queryset = Customer.objects.all()
+    serializer_class = CustomerDetailSerializer
+
+class CustomerAddressViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = CustomerAddress.objects.all()
+    serializer_class = CustomerAddressSerializer
+
    
 # AI for Thai
 # def IdCardOCR(request):
