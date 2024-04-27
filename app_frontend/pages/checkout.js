@@ -45,19 +45,19 @@ export default function Checkout() {
                   <label htmlFor="name">Full Name</label>
                   <input type="text" id="name" name="name" placeholder="Your Name" required style={{ marginBottom: '15px' }} />
                   <label htmlFor="company">Address</label>
-                  <input type="text" id="company" name="company" placeholder="Co. Inc (optional)" style={{ marginBottom: '15px' }} />
+                  <input type="text" id="company" name="company" placeholder="Your Address" style={{ marginBottom: '15px' }} />
                   <label htmlFor="email">Country</label>
                   <input type="email" id="email" name="email" placeholder="you@email.com" required style={{ marginBottom: '15px' }}/>
                 </form>
               </div>
               <div className="form-section contact ">
                 <form>
-                  <label htmlFor="name">Full Name</label>
-                  <input type="text" id="name" name="name" placeholder="Your Name" required  style={{ marginBottom: '15px' }}/>
-                  <label htmlFor="company">Address</label>
-                  <input type="text" id="company" name="company" placeholder="Co. Inc (optional)"  style={{ marginBottom: '15px' }}/>
-                  <label htmlFor="email">Country</label>
-                  <input type="email" id="email" name="email" placeholder="you@email.com" required  style={{ marginBottom: '15px' }}/>
+                  <label htmlFor="name">Email Address</label>
+                  <input type="text" id="name" name="name" placeholder="Your Address" required  style={{ marginBottom: '15px' }}/>
+                  <label htmlFor="company">Phone Number</label>
+                  <input type="text" id="company" name="company" placeholder="phone numbr"  style={{ marginBottom: '15px' }}/>
+                  <label htmlFor="email">Postal Code</label>
+                  <input type="email" id="email" name="email" placeholder="XXXXX" required  style={{ marginBottom: '15px' }}/>
                 </form>
               </div>
             </div>

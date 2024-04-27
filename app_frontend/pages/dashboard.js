@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, ReactNode } from "react";
-import ChartOne from "../components/ChartOne";
-import ChartThree from "../components/ChartThree";
-import ChartTwo_1 from "../components/ChartTwo-1";
-import ChartTwo_2 from "../components/ChartTwo-2";
+import ChartTotal from "../components/ChartTotal";
+import ChartBestSeller from "../components/ChartBestSeller";
+import ChartDog from "../components/ChartDog";
+import ChartCat from "../components/ChartCat";
 import CardDataStats from "../components/CardDataStats";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
@@ -41,12 +41,12 @@ const ECommerce = () => {
                 </CardDataStats>
               </div>
               <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-                <ChartOne />
-                <ChartThree />
+                <ChartTotal />
+                <ChartBestSeller/>
               </div>
               <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-                <ChartTwo_1 />
-                <ChartTwo_2 />
+                <ChartDog/>
+                <ChartCat />
               </div>
               
             </div>

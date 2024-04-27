@@ -1,20 +1,16 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Disclosure } from '@headlessui/react';
-import { MenuIcon, XIcon, ChevronRightIcon } from '@heroicons/react/solid';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faGoogleDrive,
-  faInstagram,
-  faGithub
-} from '@fortawesome/free-brands-svg-icons';
+import Image from "next/image";
+import Link from "next/link";
+import { Disclosure } from "@headlessui/react";
+import { MenuIcon, XIcon, ChevronRightIcon } from "@heroicons/react/solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogleDrive, faGithub } from "@fortawesome/free-brands-svg-icons";
 
 const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Products', href: '/product' },
-  { name: 'Cart', href: '/cart' },
-  // { name: 'Checkout', href: '/detail' },
-  { name: 'Checkout', href: '/checkout' },
+  { name: "Home", href: "/" },
+  { name: "Product", href: "/product" },
+  { name: "Cart", href: "/cart" },
+  { name: "Checkout", href: "/checkout" },
+  { name: "Sign out", href: "/signin" },
 ];
 
 export default function Navbar() {
@@ -26,15 +22,8 @@ export default function Navbar() {
             <div className="flex justify-between h-24">
               <div className="flex items-center">
                 <span>
-                  <Image
-                    src="/logo.png"
-                    alt="Robin Vriens Logo"
-                    width={200}
-                    height={47}
-                  />
+                  <Image src="/logo.png" width={200} height={47} />
                 </span>
-
-                
               </div>
 
               <div className="flex">
@@ -49,7 +38,7 @@ export default function Navbar() {
                   </Disclosure.Button>
                 </div>
                 <div className="hidden md:flex items-center">
-                {navigation.map(({ name, href }) => (
+                  {navigation.map(({ name, href }) => (
                     <Link href={href} key={name}>
                       <a className="inline-flex items-center px-8 py-2 font-medium rounded-md text-gray-500 colored-hover duration-300">
                         <span>{name}</span>
@@ -57,13 +46,8 @@ export default function Navbar() {
                     </Link>
                   ))}
                   <span>
-                  <Image
-                    src="/cat_banner.png"
-                    alt="Robin Vriens Logo"
-                    width={70}
-                    height={75}
-                  />
-                </span>
+                    <Image src="/cat_banner.png" width={70} height={75} />
+                  </span>
                 </div>
               </div>
             </div>
@@ -93,14 +77,6 @@ export default function Navbar() {
                   className="text-2xl text-zinc-400 hover:text-zinc-600 duration-300"
                 >
                   <FontAwesomeIcon icon={faGithub} />
-                </a>
-                <a
-                  href="https://www.instagram.com/rzowskii"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-2xl text-zinc-400 hover:text-zinc-600 duration-300"
-                >
-                  <FontAwesomeIcon icon={faInstagram} />
                 </a>
                 <a
                   href="https://www.twitter.com/robinvriens"

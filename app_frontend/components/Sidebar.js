@@ -1,10 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-// @ts-ignore
-
 import Link from "next/link";
 import Image from "next/image";
-import SidebarLinkGroup from "./SidebarLinkGroup";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const trigger = useRef(null);
@@ -16,7 +13,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
   );
 
-  // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!sidebar.current || !trigger.current) return;
@@ -32,7 +28,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     return () => document.removeEventListener("click", clickHandler);
   });
 
-  // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ key }) => {
       if (!sidebarOpen || key !== "Escape") return;
@@ -119,9 +114,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/order">
+                    <button className="bt-ordermenu rounded">
+                    Order 
+                  </button>
+                  </Link>
+                </li>
+                <li>
                   <Link href="/signin">
-                    <button className="bt-dashbelow rounded">
-                    Logout
+                    <button className="bt-signout rounded">
+                    Sign out
                   </button>
                   </Link>
                 </li>

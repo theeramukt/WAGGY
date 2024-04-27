@@ -283,6 +283,19 @@ footer{
   color:#F9F3EC;
   border:solid #F9F3EC
 }
+.bt-ordermenu.rounded {
+  padding-left: 41px; /* Adjust padding values as needed */
+  padding-right: 41px;
+  color:#F9F3EC;
+  border:solid #F9F3EC
+}
+.bt-signout.rounded {
+  padding-left: 33px; /* Adjust padding values as needed */
+  padding-right: 33px;
+  color:#F9F3EC;
+  border:solid #F9F3EC
+}
+
 Html{
   background-color: #F9F3EC;
   font-family: Chilanka;
