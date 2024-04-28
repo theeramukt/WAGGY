@@ -1,4 +1,7 @@
 from django.shortcuts import render
+
+# Create your views here.
+from django.shortcuts import render
 from django.http import JsonResponse
 
 from django.views.decorators.csrf import csrf_exempt
@@ -14,7 +17,7 @@ from rest_framework.response import Response
 
 
 class ProductView(ListCreateAPIView): # list and adding data
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Product.objects.all()
     serializer_class = ProductsSerializer
     # def get(self, request, format=None):
@@ -26,7 +29,7 @@ class ProductView(ListCreateAPIView): # list and adding data
     #     return Response(content)
     
 class ProductDetailView(RetrieveUpdateDestroyAPIView): # fetching, updating and deleting single data
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Product.objects.all()
     serializer_class = ProductsDetailSerializer
     
