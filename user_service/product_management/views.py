@@ -15,7 +15,7 @@ from rest_framework.response import Response
 
 class ProductView(ListCreateAPIView): # list and adding data
     permission_classes = [IsAuthenticated]
-    product_data = Product.objects.all()
+    queryset = Product.objects.all()
     serializer_class = ProductsSerializer
     # def get(self, request, format=None):
     #     product_data = Product.objects.all()
@@ -27,8 +27,8 @@ class ProductView(ListCreateAPIView): # list and adding data
     
 class ProductDetailView(RetrieveUpdateDestroyAPIView): # fetching, updating and deleting single data
     permission_classes = [IsAuthenticated]
-    product_data = Product.objects.all()
-    serializer_class = ProductsDetailSerializer(product_data, many=True)
+    queryset = Product.objects.all()
+    serializer_class = ProductsDetailSerializer
     
 # def products_list(request):
 #     if request.method == 'GET':
