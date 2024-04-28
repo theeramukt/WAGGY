@@ -9,17 +9,17 @@ from rest_framework.generics import ListAPIView, ListCreateAPIView
 # Create your views here.
 
 class OrderView(ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = Order.objects.all()
-    serializer_class = OrdersSerializer
+    # permission_classes = [IsAuthenticated]
     # def get(self, request, format=None):
+        queryset = Order.objects.all()
+        serializer_class = OrdersSerializer
         # content = {
         #     'data': order_serializer.data,
         # }
         # return Response(content)
     
 class OrderDetailView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     serializer_class = OrdersDetailSerializer
     def get_queryset(self):
         order_id = self.kwargs['pk']
