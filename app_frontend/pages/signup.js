@@ -1,31 +1,108 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 export default function Signup() {
+  const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(null);
   const [uploadStatus, setUploadStatus] = useState(null);
 
-  const handleImageChange = (event) => {
-    setSelectedImage(event.target.files[0]);
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    password: "",
+    image: null,
+  });
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    setFormData((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }))
   };
+  console.log(formData);
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setFormData((prevData) => ({
+      ...prevData,
+      image: file,
+    }));
+  };
+  const handleImageSubmit = async (event) => {
+    console.log("click")
+    try {
+      const imageForm = new FormData();
+      imageForm.append("file", formData.image);
+  
+      const imageResponse = await fetch("http://127.0.0.1:3342/api/idCard", {
+        method: "POST",
+        body: imageForm,
+      });
+  
+      if (!imageResponse.ok) {
+        throw new Error("Failed to upload image");
+      }
+  
+      const imageData = await imageResponse.json();
+  
+      // แก้ไขส่วนนี้เพื่อนำข้อมูล JSON มาแสดงในฟอร์ม
+      setFormData((prevData) => ({
+        ...prevData,
+        fullname: imageData.th_name,
+      }));
+      setUploadStatus(data.message);
+    } catch (error) {
+      console.error("Error:", error);
+      setUploadStatus("Upload failed!");
+    }
+  };
+
+  // useEffect(async() => {
+  //   try {
+  //     const imageForm = new FormData();
+  //     imageForm.append("file", formData.image);
+  
+  //     const imageResponse = await fetch("http://127.0.0.1:3342/api/idCard", {
+  //       method: "POST",
+  //       body: imageForm,
+  //     });
+  
+  //     if (!imageResponse.ok) {
+  //       throw new Error("Failed to upload image");
+  //     }
+  
+  //     const imageData = await imageResponse.json();
+  
+  //     // แก้ไขส่วนนี้เพื่อนำข้อมูล JSON มาแสดงในฟอร์ม
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       fullname: imageData.th_name,
+  //     }));
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("An error occurred while uploading image. Please try again.");
+  //   }
+  // }, [selectedImage]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData();
-    formData.append("image", selectedImage);
-
-    try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
+    const response = await fetch("http://127.0.0.1:3342/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullname: formData.fullname,
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
+    if (response.ok) {
       const data = await response.json();
-      setUploadStatus(data.message);
-    } catch (error) {
-      console.error(error);
-      setUploadStatus("Upload failed!");
+      console.log(data);
+      router.push("/signin")
+    } else {
+      console.error("Error", response.status);
     }
   };
   return (
@@ -61,6 +138,8 @@ export default function Signup() {
                   id="fullname"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="waggy petshop"
+                  onChange={handleChange}
+                  value={formData.fullname}
                   required=""
                 />
               </div>
@@ -93,6 +172,8 @@ export default function Signup() {
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="waggy@company.com"
+                  onChange={handleChange}
+                  value={formData.email}
                   required=""
                 />
               </div>
@@ -109,6 +190,8 @@ export default function Signup() {
                   id="password"
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={handleChange}
+                  value={formData.password}
                   required=""
                 />
               </div>
@@ -129,26 +212,28 @@ export default function Signup() {
                 />
               </div> */}
               <div className="flex items-center justify-between">
-                <div className="flex items-start justify-content: center">
-                  <form onSubmit={handleSubmit}>
+                <div className="flex items-start justify-content: center flex-col">
+                  {/* <form onSubmit={handleSubmit}> */}
                     <input type="file" onChange={handleImageChange} />
                     <br></br>
-                    <button type="submit">Uploading a picture of your ID Card is an alternative to filling out the form</button>
+                    <div onClick={handleImageSubmit}>Uploading a picture of your ID Card is an alternative to filling out the form</div>
                     {uploadStatus && <p>{uploadStatus}</p>}
-                  </form>
+                  {/* </form> */}
                 </div>
               </div>
-              <Link href="/signin">
+              {/* <Link href="/signin" onClick={handleSubmit}> */}
+              <div onClick={handleSubmit} >
                 <button
                   type="submit"
-                  className="bg-home rounded_home hover:bg-row  transition-colors "
+                  className="bg-home rounded_home hover:bg-row  transition-colors w-full"
                 >
                   Sign up
                 </button>
-              </Link>
+              </div>
+              {/* </Link> */}
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{"  "}
-                <Link href="/signin">
+                <Link href="/signin" >
                   <a
                     href="#"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"

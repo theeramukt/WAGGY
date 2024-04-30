@@ -10,185 +10,198 @@ export default function ProductPage() {
   const router = useRouter();
   const { query } = router;
 
-  const [products, setProducts] = useState([
-    {
-      category: "Dog",
-      imgSrc: "/bed.jpg",
-      title: "Dog Bed",
-      price: "30",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-bowl.jpg",
-      title: "Feeding Dishes",
-      price: "17",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-coffee.jpg",
-      title: "Pups Coffee",
-      price: "13",
-      description:
-        "SQUEAKER INSIDE - Your Pup's new favorite squeaky dog toy! Keep them entertained and energized while you sit back.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-container.jpg",
-      title: "Dog Food Container",
-      price: "70",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-feeder.jpg",
-      title: "Acrylic Feeder Stand",
-      price: "26",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-holder.jpg",
-      title: "Water and Treat Holder",
-      price: "16",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-leash.jpg",
-      title: "Waterproof Dog Leash",
-      price: "14",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-poy.jpg",
-      title: "Dog Harness Choke",
-      price: "50",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-rope.jpg",
-      title: "Rope Toy",
-      price: "29",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-set.jpg",
-      title: "Set pet Dog Toys",
-      price: "29",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-shampoo.jpg",
-      title: "Dog Shampoo",
-      price: "16",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-towel.png",
-      title: "Bath Towel",
-      price: "10",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-toy.jpg",
-      title: "Plush Llama Toy",
-      price: "18",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-treat.jpg",
-      title: "Interactive Treat Bone",
-      price: "20",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-waste.jpg",
-      title: "Dog Waste Bag",
-      price: "17",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Dog",
-      imgSrc: "/product-wong.jpg",
-      title: "Dog Collar",
-      price: "9",
-      description: "A comfortable bed for your dog.",
-    },
-    {
-      category: "Cat",
-      imgSrc: "/product-donut-cat.jpg",
-      title: "Cat Cave",
-      price: "39",
-      description: "A snug and warm cave for your cat to sleep.",
-    },
-    {
-      category: "Cat",
-      imgSrc: "/product-tower-cat.jpg",
-      title: "Cat Tree Tower",
-      price: "199",
-      description: "A large play tower for cats to climb and explore.",
-    },
-    {
-      category: "Cat",
-      imgSrc: "/product-bed-cat.jpg",
-      title: "Kitten Bed",
-      price: "40",
-      description: "A soft and comfortable bed designed for kittens.",
-    },
-    {
-      category: "Cat",
-      imgSrc: "/product-house-cat.jpg",
-      title: "Cat House",
-      price: "40",
-      description: "A cozy house for your cat to enjoy privacy.",
-    },
-    {
-      category: "Cat",
-      imgSrc: "/product-hand-cat.jpg",
-      title: "Hand Woven Cat Bed",
-      price: "26",
-      description:
-        "A beautifully crafted bed for cats, made from natural materials.",
-    },
-    {
-      category: "Cat",
-      imgSrc: "/product-cardboard-cat.jpg",
-      title: "Cat Scratcher Cardboard",
-      price: "16",
-      description:
-        "A durable cardboard scratcher that helps keep cat claws healthy.",
-    },
-    {
-      category: "Cat",
-      imgSrc: "/product-bowl-cat.jpg",
-      title: "Elevated Cat Bowls",
-      price: "19",
-      description: "Elevated bowls to help your cat eat more comfortably.",
-    },
-    {
-      category: "Cat",
-      imgSrc: "/product-fold-cat.jpg",
-      title: "Foldable Cat Litter Box",
-      price: "33",
-      description: "A foldable litter box that is easy to store and clean.",
-    },
-  ]);
+  const [products, setProducts] = useState([]);
+
+  // const [products, setProducts] = useState([
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/bed.jpg",
+  //     title: "Dog Bed",
+  //     price: "30",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-bowl.jpg",
+  //     title: "Feeding Dishes",
+  //     price: "17",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-coffee.jpg",
+  //     title: "Pups Coffee",
+  //     price: "13",
+  //     description:
+  //       "SQUEAKER INSIDE - Your Pup's new favorite squeaky dog toy! Keep them entertained and energized while you sit back.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-container.jpg",
+  //     title: "Dog Food Container",
+  //     price: "70",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-feeder.jpg",
+  //     title: "Acrylic Feeder Stand",
+  //     price: "26",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-holder.jpg",
+  //     title: "Water and Treat Holder",
+  //     price: "16",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-leash.jpg",
+  //     title: "Waterproof Dog Leash",
+  //     price: "14",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-poy.jpg",
+  //     title: "Dog Harness Choke",
+  //     price: "50",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-rope.jpg",
+  //     title: "Rope Toy",
+  //     price: "29",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-set.jpg",
+  //     title: "Set pet Dog Toys",
+  //     price: "29",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-shampoo.jpg",
+  //     title: "Dog Shampoo",
+  //     price: "16",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-towel.png",
+  //     title: "Bath Towel",
+  //     price: "10",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-toy.jpg",
+  //     title: "Plush Llama Toy",
+  //     price: "18",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-treat.jpg",
+  //     title: "Interactive Treat Bone",
+  //     price: "20",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-waste.jpg",
+  //     title: "Dog Waste Bag",
+  //     price: "17",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Dog",
+  //     imgSrc: "/product-wong.jpg",
+  //     title: "Dog Collar",
+  //     price: "9",
+  //     description: "A comfortable bed for your dog.",
+  //   },
+  //   {
+  //     category: "Cat",
+  //     imgSrc: "/product-donut-cat.jpg",
+  //     title: "Cat Cave",
+  //     price: "39",
+  //     description: "A snug and warm cave for your cat to sleep.",
+  //   },
+  //   {
+  //     category: "Cat",
+  //     imgSrc: "/product-tower-cat.jpg",
+  //     title: "Cat Tree Tower",
+  //     price: "199",
+  //     description: "A large play tower for cats to climb and explore.",
+  //   },
+  //   {
+  //     category: "Cat",
+  //     imgSrc: "/product-bed-cat.jpg",
+  //     title: "Kitten Bed",
+  //     price: "40",
+  //     description: "A soft and comfortable bed designed for kittens.",
+  //   },
+  //   {
+  //     category: "Cat",
+  //     imgSrc: "/product-house-cat.jpg",
+  //     title: "Cat House",
+  //     price: "40",
+  //     description: "A cozy house for your cat to enjoy privacy.",
+  //   },
+  //   {
+  //     category: "Cat",
+  //     imgSrc: "/product-hand-cat.jpg",
+  //     title: "Hand Woven Cat Bed",
+  //     price: "26",
+  //     description:
+  //       "A beautifully crafted bed for cats, made from natural materials.",
+  //   },
+  //   {
+  //     category: "Cat",
+  //     imgSrc: "/product-cardboard-cat.jpg",
+  //     title: "Cat Scratcher Cardboard",
+  //     price: "16",
+  //     description:
+  //       "A durable cardboard scratcher that helps keep cat claws healthy.",
+  //   },
+  //   {
+  //     category: "Cat",
+  //     imgSrc: "/product-bowl-cat.jpg",
+  //     title: "Elevated Cat Bowls",
+  //     price: "19",
+  //     description: "Elevated bowls to help your cat eat more comfortably.",
+  //   },
+  //   {
+  //     category: "Cat",
+  //     imgSrc: "/product-fold-cat.jpg",
+  //     title: "Foldable Cat Litter Box",
+  //     price: "33",
+  //     description: "A foldable litter box that is easy to store and clean.",
+  //   },
+  // ]);
 
   const [filteredCategory, setFilteredCategory] = useState("");
 
   const [displayedProducts, setDisplayedProducts] = useState([]);
 
   const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    fetchData('http://127.0.0.1:3342/api/products');
+  }, []);
+
+  function fetchData(url) {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
+      .catch((error) => console.log("error", error));
+  }
 
   const handleFilterChange = (category) => {
     setFilter(category);
@@ -208,7 +221,7 @@ export default function ProductPage() {
   useEffect(() => {
     if (filteredCategory) {
       const filtered = products.filter(
-        (product) => product.category === filteredCategory
+        (product) => product.category.name === filteredCategory
       );
       setDisplayedProducts(filtered);
     } else {
@@ -345,9 +358,10 @@ export default function ProductPage() {
       {productRows.map((row, index) => (
         <div key={index} className="four-box-row">
           {row.map((product, index) => (
+            console.log(product.image),
             <Item
               key={index}
-              imgSrc={product.imgSrc}
+              imgSrc={product.image}
               title={product.title}
               price={product.price}
               description={product.description}

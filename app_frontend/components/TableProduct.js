@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react"; // Import useState hook for modal state
+import React, { useEffect, useState } from "react"; // Import useState hook for modal state
 
 const brandData = [
   {
@@ -51,12 +51,70 @@ const TableProduct = () => {
       : text;
   }
   
-  const [showModal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
   const handleOpenModal = () => setShowModal(true);
   const [showeditModal, seteditShowModal] = React.useState(false);
   const handleCloseeditModal = () => seteditShowModal(false);
   const handleOpeneditModal = () => seteditShowModal(true);
+  const [product, setProduct] = useState([])
+
+  useEffect(() => {
+    fetchData('http://127.0.0.1:3342/api/products');
+  }, []);
+
+  function fetchData(url) {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => setProduct(data))
+      .catch((error) => console.log("error", error));
+  }
+
+  async function handleEdit (event) {
+    console.log(event)
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const response = await fetch("http://127.0.0.1:3342/api/editProduct", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: formData.get("name"),
+        price: formData.get("price"),
+        category: formData.get("category"),
+        description: formData.get("description"),
+      }),
+        // Handle response if necessary
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+    } else {
+      console.error("Error", response.status);
+    }
+  }
+
+  async function handleDelete (id) {
+    console.log(id);
+    const response = await fetch("http://127.0.0.1:3342/api/deleteProduct", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+      // Handle response if necessary
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+    } else {
+      console.error("Error", response.status);
+    }
+    window.location.reload();
+  }
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
@@ -101,7 +159,7 @@ const TableProduct = () => {
           </div>
         </div>
 
-        {brandData.map((brand, key) => (
+        {product.map((brand, key) => (
           <div
             className={`grid grid-cols-3 sm:grid-cols-5 ${
               key === brandData.length - 1
@@ -112,12 +170,12 @@ const TableProduct = () => {
           >
             <div className="flex items-center gap-3 p-2.5 xl:p-5">
               <div className="flex-shrink-0">
-                <Image src={brand.logo} alt="Brand" width={48} height={48} />
+                <Image src={brand.image} alt="Brand" width={48} height={48} />
               </div>
             </div>
 
             <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">{brand.name}</p>
+              <p className="text-black dark:text-white">{brand.title}</p>
             </div>
 
             <div className="flex items-center justify-center p-2.5 xl:p-5">
@@ -126,7 +184,7 @@ const TableProduct = () => {
 
             <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
               <p className="text-black dark:text-white">
-                {trimText(brand.discription, 80)}
+                {trimText(brand.description, 80)}
               </p>
             </div>
 
@@ -143,7 +201,7 @@ const TableProduct = () => {
                   
               </button>
               <button className="hover:text-primary px-2">
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0" onClick={() => handleDelete(brand.id)}>
                     <Image
                       src={"/bin.png"}
                       alt="Brand"
@@ -222,7 +280,7 @@ const TableProduct = () => {
                         name="price"
                         id="price"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="$2999"
+                        placeholder="2999"
                         required=""
                       />
                     </div>
@@ -238,8 +296,8 @@ const TableProduct = () => {
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       >
                         <option selected="">Select category</option>
-                        <option value="Cat">Cat Product</option>
-                        <option value="Dog">Dog Product</option>
+                        <option value="Cat">Cat</option>
+                        <option value="Dog">Dog</option>
                       </select>
                     </div>
                     <div className="col-span-2">
@@ -335,7 +393,7 @@ const TableProduct = () => {
                   </button>
                 </div>
                 {/* Modal body */}
-                <form className="p-4 md:p-5">
+                <form className="p-4 md:p-5" onSubmit={handleEdit}>
                   <div className="grid gap-4 mb-4 grid-cols-2">
                     <div className="col-span-2">
                       <label
@@ -381,8 +439,8 @@ const TableProduct = () => {
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       >
                         <option selected="">Select category</option>
-                        <option value="Cat">Cat Product</option>
-                        <option value="Dog">Dog Product</option>
+                        <option value="Cat">Cat</option>
+                        <option value="Dog">Dog</option>
                       </select>
                     </div>
                     <div className="col-span-2">
