@@ -13,8 +13,8 @@ class Product(models.Model):
     description = models.CharField()
     price = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null = True, related_name='category_product')
+    image = models.CharField(max_length=255)
+    bestSeller = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
-
-# Create your models here.

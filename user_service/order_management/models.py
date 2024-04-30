@@ -7,6 +7,11 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Order(models.Model):
     user = models.ForeignKey(Customer, null=True, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    price = models.IntegerField()
+    description = models.CharField()
+    image = models.CharField(max_length=255)
+    qty = models.IntegerField()
 
 class OrderItems(models.Model):
     order = models.ForeignKey(Order, null=True, on_delete=models.SET_NULL, related_name='order_items')
@@ -15,4 +20,12 @@ class OrderItems(models.Model):
 
     def __str__(self):
         return self.product.title
+    
+class Checkout(models.Model):
+    user = models.ForeignKey(Customer, null=True, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    price = models.IntegerField()
+    description = models.CharField()
+    image = models.CharField(max_length=255)
+    qty = models.IntegerField()
     
