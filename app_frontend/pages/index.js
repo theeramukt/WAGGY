@@ -2,8 +2,24 @@ import Navbar from "../components/Navbar";
 import Image from "next/image";
 import Item from "../components/Item_home";
 import Link from "next/link";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    fetchData('http://127.0.0.1:3342/api/products');
+  }, []);
+
+  function fetchData(url) {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
+      .catch((error) => console.log("error", error));
+  }
+  
   return (
     <div>
       <Navbar />
@@ -51,13 +67,9 @@ export default function Home() {
                 <div className="w-28 h-1 bg-row my-2"></div>
               </div>
               <div class="flex justify-between">
-                {/* product 1 */}
-                <Item imgSrc="/bed.jpg" title="Dog Bed" />
-
-                {/* product 2 */}
-                <Item imgSrc="/product-bowl.jpg" title="Feeding Dishes" />
-                {/* product 3 */}
-                <Item imgSrc="/product-coffee.jpg" title="Pups Coffee" />
+              {products.map((product, i) => (
+                product.category.name == 'Dog' && i<3 ?
+                <Item imgSrc={product.image} title={product.title}/> : ""))}
               </div>
               <div class="flex justify-center">
                 {/* Checkout Button */}
@@ -78,13 +90,9 @@ export default function Home() {
                 <div className="w-28 h-1 bg-row my-2"></div>
               </div>
               <div class="flex justify-between">
-                {/* product 1 */}
-                <Item imgSrc="/product-donut-cat.jpg" title="Cat Cave" />
-
-                {/* product 2 */}
-                <Item imgSrc="/product-tower-cat.jpg" title="Cat Tree Tower" />
-                {/* product 3 */}
-                <Item imgSrc="/product-bed-cat.jpg" title="Kitten Bed" />
+              {products.map((product, i) => (
+                product.category.name == 'Cat' && i<11 ?
+                <Item imgSrc={product.image} title={product.title}/> : ""))}
               </div>
               {/* Checkout Button */}
               <div class="flex justify-center">

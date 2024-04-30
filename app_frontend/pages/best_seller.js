@@ -2,8 +2,20 @@ import Navbar from "../components/Navbar";
 import Item from "../components/Item";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function best_seller() {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    fetchData('http://127.0.0.1:3342/api/products');
+  }, []);
+
+  function fetchData(url) {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
+      .catch((error) => console.log("error", error));
+  }
   return (
     <div>
       <Navbar />
@@ -59,37 +71,14 @@ export default function best_seller() {
       </div>
 
       <div className="four-box-row">
-        {/* product 1 */}
-        <Item
-          imgSrc="/bed.jpg"
-          title="Dog Bed"
-          price="30"
-          description="A comfortable bed for your dog." // Add the actual description here
-        />
-
-        {/* product 6 */}
-        <Item
-          imgSrc="/product-holder.jpg"
-          title="Water and Treat Holder"
-          price="16"
-          description="A comfortable bed for your dog." // Add the actual description here
-        />
-
-        {/* product 11 */}
-        <Item
-          imgSrc="/product-shampoo.jpg"
-          title="Dog Shampoo"
-          price="16"
-          description="A comfortable bed for your dog." // Add the actual description here
-        />
-
-        {/* product 15 */}
-        <Item
-          imgSrc="/product-waste.jpg"
-          title="Dog Waste Bag"
-          price="17"
-          description="A comfortable bed for your dog." // Add the actual description here
-        />
+        {products.map((product) => (
+          product.category.name == 'Dog' && product.bestSeller == true ?
+          <Item
+          imgSrc={product.image}
+          title={product.title}
+          price={product.price}
+          description={product.description} // Add the actual description here
+        /> : ""))}
       </div>
       <div className="max-w-7xl mx-auto px-8 lg:px-12">
         <div className="container-xxl py-6">
@@ -104,36 +93,14 @@ export default function best_seller() {
       </div>
 
       <div className="four-box-row">
-        {/* product 1 */}
-        <Item
-          imgSrc="/product-donut-cat.jpg"
-          title="Cat Cave"
-          price="39"
-          description="A comfortable bed for your dog." // Add the actual description here
-        />
-        {/* product 4 */}
-        <Item
-          imgSrc="/product-house-cat.jpg"
-          title="Cat House"
-          price="40"
-          description="A comfortable bed for your dog." // Add the actual description here
-        />
-
-        {/* product 5 */}
-        <Item
-          imgSrc="/product-hand-cat.jpg"
-          title="Hand Woven Cat Bed"
-          price="26"
-          description="A comfortable bed for your dog." // Add the actual description here
-        />
-
-        {/* product 6 */}
-        <Item
-          imgSrc="/product-cardboard-cat.jpg"
-          title="Cat Scratcher Cardboard"
-          price="16"
-          description="A comfortable bed for your dog." // Add the actual description here
-        />
+      {products.map((product) => (
+          product.category.name == 'Cat' && product.bestSeller == true ?
+          <Item
+          imgSrc={product.image}
+          title={product.title}
+          price={product.price}
+          description={product.description} // Add the actual description here
+        /> : ""))}
       </div>
       <footer className="line_down h-20 text-center text-brown-500 mt-12">
         <p>W A G G Y</p>

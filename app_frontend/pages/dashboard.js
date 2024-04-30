@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ReactNode } from "react";
+import React, { useState, ReactNode, useEffect } from "react";
 import ChartTotal from "../components/ChartTotal";
 import ChartBestSeller from "../components/ChartBestSeller";
 import ChartDog from "../components/ChartDog";
@@ -10,6 +10,45 @@ import Header from "../components/Header";
 
 const ECommerce = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [customer, setCustomer] = useState([]);
+    const [product, setProduct] = useState([]);
+    const [checkout, setCheckout] = useState([]);
+
+    var totalIncome = 0;
+
+    useEffect(() => {
+      fetchCustomer('http://127.0.0.1:3342/api/customers');
+    }, []);
+  
+    function fetchCustomer(url) {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => setCustomer(data))
+        .catch((error) => console.log("error", error));
+    }
+
+    useEffect(() => {
+      fetchProduct('http://127.0.0.1:3342/api/products');
+    }, []);
+  
+    function fetchProduct(url) {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => setProduct(data))
+        .catch((error) => console.log("error", error));
+    }
+
+    useEffect(() => {
+      fetchCheckout('http://127.0.0.1:3342/api/checkout');
+    }, []);
+  
+    function fetchCheckout(url) {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => setCheckout(data))
+        .catch((error) => console.log("error", error));
+    }
+
   return (
     <>
       <div className="flex h-screen overflow-hidden">
@@ -21,24 +60,22 @@ const ECommerce = () => {
               <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4 xl:grid-cols-3 2xl:gap-7.5">
                 <CardDataStats
                   title="Current Customer"
-                  total="245 Customers"
+                  total={`${customer.length} Customers`}
                   children="/logo-right.png"
-                >
-                </CardDataStats>
+                />
                 <CardDataStats
                   title="Current Product"
-                  total="24 Products"
+                  total={`${product.length} Products`}
                   children="/checkout_dog.png"
-
-                >
-                </CardDataStats>
+                />
+                {checkout.map((checkout, i) => {
+                  totalIncome += checkout.price * checkout.qty
+                })}
                 <CardDataStats
                   title="Overall Money"
-                  total="$2780.5"
+                  total={`${totalIncome}`}
                   children="/cat_banner.png"
-
-                >
-                </CardDataStats>
+                />
               </div>
               <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
                 <ChartTotal />
@@ -48,7 +85,6 @@ const ECommerce = () => {
                 <ChartDog/>
                 <ChartCat />
               </div>
-              
             </div>
           </main>
         </div>
