@@ -30,16 +30,29 @@ router.register('api/address', CustomerAddressViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # register
     path('api/register', register),
+    path('api/idCard', IdCardOCR),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/myinfo', CustomerView.as_view(), name="myinfo"),
-    path('api/customers', CustomerView.as_view(), name='product'),
-    path('api/customer/<int:pk>', CustomerDetailView.as_view(), name='product'),
+    path('api/customers', CustomerView.as_view(), name='customer'),
+    path('api/customer/<int:pk>', CustomerDetailView.as_view(), name='single_customer'),
     path('api/products', ProductView.as_view(), name='product'),
-    path('api/product/<int:pk>', ProductDetailView.as_view(), name='product'),
+    path('api/product/<int:pk>', ProductDetailView.as_view(), name='single_product'),
     path('api/orders', OrderView.as_view(), name='order'),
     path('api/order/<int:pk>', OrderDetailView.as_view(), name='order'),
+    # path('api/addAddress', addAddress),
+    path('api/addCart', addCart),
+    path('api/deleteCart', deleteCart),
+    path('api/clearCart', clearCart),
+    path('api/updateQty', updateQty),
+    # checkout
+    path('api/checkout', CheckoutView.as_view(), name="checkout"),
+    path('api/addCheckout', addCheckout),
+    path('api/deleteCheckout', deleteCheckout),
+    path('api/editProduct', editProduct),
+    path('api/deleteProduct', deleteProduct),
 ]
 
 urlpatterns += router.urls
